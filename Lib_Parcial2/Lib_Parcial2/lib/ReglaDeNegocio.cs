@@ -84,18 +84,6 @@ namespace Lib_Parcial2.lib
                 return false;
             }
 
-            if(this.EstratoColegio < 1 || this.EstratoColegio > 6)
-            {
-                Error = "El valor ingresado para estrato de colegio no es valido";
-                return false;
-            }
-
-            if (this.EstratoVivienda < 1 || this.EstratoVivienda > 6)
-            {
-                Error = "El valor ingresado para estrato de colegio no es valido";
-                return false;
-            }
-
         }
         #endregion
 

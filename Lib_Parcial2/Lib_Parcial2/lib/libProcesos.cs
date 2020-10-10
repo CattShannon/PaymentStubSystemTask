@@ -6,38 +6,106 @@ using System.Threading.Tasks;
 
 namespace Lib_Parcial2.lib
 {
-    public class libProcesos
+
+    public class LibProcesos
     {
-        private int valorCredito = 200000;
-        public int valorPagarAntesDeDescuento { get; set; }
-        public int porcentajeDescuento { get; set; }
-        public double valorDescuento { get; set; }
-
-        public void obtenerValorPagarAntesDescuento(int numeroCreditos) {
-            this.valorPagarAntesDeDescuento = valorCredito * numeroCreditos;
-        }
-
-        public void obtenerPorcentajeDescuento() {
-            ReglaDeNegocio objReglaDeNegocio = new ReglaDeNegocio();
-            this.porcentajeDescuento = (int)(objReglaDeNegocio.porcentajeDescuento * 100);
-            objReglaDeNegocio = null;
-        }
-
-        public void obtenerValorDescuento()
+        #region Constructor
+        public LibProcesos()
         {
-            ReglaDeNegocio objReglaDeNegocio = new ReglaDeNegocio();
-            double valorDescuento = this.valorPagarAntesDeDescuento * this.porcentajeDescuento;
-            objReglaDeNegocio = null;
-        }
+            ValorCredito = 200000;
+            ValorPagarAntesDeDescuento = -1;
 
-        public double obtenerValorTotal()
+        }
+        #endregion
+
+        #region Atributos/Propiedades
+        private int ValorCredito; 
+        public int EstratoColegio { get; set; }
+        public int EstratoVivienda { get; set; }
+        public int NumeroCreditos { get; set; }
+        public string Programa { get; set; }
+        public double ValorPagarAntesDeDescuento { get; private set; }
+        public double PorcentajeDescuento { get; private set; }
+        public double ValorDescuento { get; private set; }
+        public double ValorTotal { get; private set; }
+        public string Error {get; private set; }
+        #endregion
+
+        #region Metodos
+        public bool obtenerValorTotal()
         {
-            ReglaDeNegocio objReglaDeNegocio = new ReglaDeNegocio();
-            double valorPagar = this.valorPagarAntesDeDescuento * this.porcentajeDescuento;
-            objReglaDeNegocio = null;
-            return valorPagar;
+            if (!Validar() || !ObtenerPorcentajeDescuento())
+            {
+                return false;
+            }
+
+            ObtenerValorPagarAntesDescuento();
+            ObtenerValorDescuento();
+            
+            ValorTotal = this.valorPagarAntesDeDescuento - this.ValorDescuento;
+        return true;
         }
 
+        private bool Validar()
+        {
+            if (Programa.Equals(string.Empty))
+            {
+                Error = "No ha seleccionado ningun programa";
+                return false;
+            }
 
+            if (NumeroCreditos < 2 || NumeroCreditos > 7)
+            {
+                Error = "Cantidad de creditos seleccionada no válida. Deben ser minimo 2 o maximo 7";
+                return false;
+            }
+
+            if (this.EstratoColegio < 1 || this.EstratoColegio > 6)
+            {
+                Error = "El valor ingresado para estrato de colegio no es valido";
+                return false;
+            }
+
+            if (this.EstratoVivienda < 1 || this.EstratoVivienda > 6)
+            {
+                Error = "El valor ingresado para estrato de colegio no es valido";
+                return false;
+            }
+
+            return true;
+        } 
+
+        private bool ObtenerPorcentajeDescuento() {
+            ReglaDeNegocio objReglaDeNegocio = new ReglaDeNegocio();
+
+            objReglaDeNegocio.Programa = this.Programa;
+            objReglaDeNegocio.EstratoColegio = this.EstratoColegio;
+            objReglaDeNegocio.EstratoVivienda = this.EstratoVivienda;
+
+
+            if (!objReglaDeNegocio.ObtenerPorcentajeDescuento())
+            {
+                Error = objReglaDeNegocio.Error;
+                objReglaDeNegocio = null;
+                return false;
+            }
+           
+           this.PorcentajeDescuento = objReglaDeNegocio.PorcentajeDescuento;
+           objReglaDeNegocio = null;
+           return true;
+           
+
+        }
+
+        private void ObtenerValorPagarAntesDescuento()
+        {
+            ValorPagarAntesDeDescuento = ValorCredito * NumeroCreditos;
+        }
+
+        private void ObtenerValorDescuento()
+        {
+            ValorDescuento = this.ValorPagarAntesDeDescuento * this.PorcentajeDescuento;
+        }
+        #endregion
     }
 }
