@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Lib_Parcial2.lib
 {
-    class libProcesos
+    public class libProcesos
     {
+       
     }
 }
