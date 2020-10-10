@@ -13,7 +13,10 @@ namespace Lib_Parcial2.lib
         public LibProcesos()
         {
             ValorCredito = 200000;
-            ValorPagarAntesDeDescuento = -1;
+            EstratoColegio = -1;
+            EstratoVivienda = -1;
+            NumeroCreditos = -1;
+            Programa = string.Empty;
 
         }
         #endregion

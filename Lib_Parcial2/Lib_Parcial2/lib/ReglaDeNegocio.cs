@@ -84,6 +84,8 @@ namespace Lib_Parcial2.lib
                 return false;
             }
 
+            return true;
+
         }
         #endregion
 
