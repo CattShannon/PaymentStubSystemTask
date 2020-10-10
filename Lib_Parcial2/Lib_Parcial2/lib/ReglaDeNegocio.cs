@@ -78,6 +78,7 @@ namespace Lib_Parcial2.lib
 
         public bool Validar()
         {
+<<<<<<< HEAD
             if (this.Programa.Equals(string.Empty))
             {
                 Error = "Error. No ha ingresado ningún programa";
@@ -96,6 +97,9 @@ namespace Lib_Parcial2.lib
                 return false;
             }
 
+=======
+            porcentajeDescuento = 0.2;
+>>>>>>> 5e4143f0ad0d42600039e65f201dc105126c5128
             return true;
         }
         #endregion
