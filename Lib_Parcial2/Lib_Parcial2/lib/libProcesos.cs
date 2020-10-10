@@ -13,10 +13,8 @@ namespace Lib_Parcial2.lib
         public int porcentajeDescuento { get; set; }
         public double valorDescuento { get; set; }
 
-        public void obtenerValorPagarAntesDescuento() {
-            ReglaDeNegocio objReglaDeNegocio = new ReglaDeNegocio();
-            this.valorPagarAntesDeDescuento = valorCredito * objReglaDeNegocio.numeroCreditos;
-            objReglaDeNegocio = null;
+        public void obtenerValorPagarAntesDescuento(int numeroCreditos) {
+            this.valorPagarAntesDeDescuento = valorCredito * numeroCreditos;
         }
 
         public void obtenerPorcentajeDescuento() {

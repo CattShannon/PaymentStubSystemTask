@@ -20,7 +20,6 @@ namespace Lib_Parcial2.lib
         public string programa { set; get; }
         public int estratoColegio { set; get; }
         public int estratoVivienda { set; get; }
-        public int numeroCreditos { set; get; }
         public double porcentajeDescuento { private set; get; }
         public string error { private set; get; }
         #endregion
@@ -29,7 +28,7 @@ namespace Lib_Parcial2.lib
         #region Metodos
         public bool obtenerPorcentajeDescuento()
         {
-            porcentajeDesuento = 0.2;
+            porcentajeDescuento = 0.2;
             return true;
         }
         #endregion
